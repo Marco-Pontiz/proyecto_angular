@@ -1,0 +1,18 @@
+<mat-drawer-container class="example-container" autosize>
+    <!-- Sidebar -->
+    <mat-drawer mode="over" #drawer class="example-sidenav" mode="side">
+    </mat-drawer>
+    <!-- Fin del Sidebar -->
+    <!-- Content Wrapper-->
+    <div class="example-sidenav-content">
+        <!-- Toolbar -->
+        <mat-toolbar>
+            <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Escuela Cuyana</span>
+        </mat-toolbar>
+    <!-- Fin del Toolbar -->
+    </div>
+
+</mat-drawer-container>
