@@ -12,5 +12,6 @@
     width: 200px;
 }
 
-.example-sidenav {
+main {
+    min-height: calc(100vh - 64px);
 }
