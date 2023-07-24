@@ -1,4 +1,8 @@
+<div class="mb-5">
 <button (click)="onCreateUser()" mat-flat-button color="primary" type="button">
     <mat-icon>add</mat-icon>
     Crear Alumno
 </button>
+</div>
+
+<app-users-table [dataSource]="users"></app-users-table>

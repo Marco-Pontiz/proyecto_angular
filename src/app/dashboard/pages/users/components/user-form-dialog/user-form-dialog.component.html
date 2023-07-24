@@ -51,7 +51,7 @@
     <div class="field">
         <mat-form-field appaerance="outline">
             <mat-label>Contraseña</mat-label>
-            <input formControlPassword="password" matInput type="password" name="password">
+            <input formControlPassword="password" matInput type="password" name="password" autocomplete="off">
 
             <mat-error *ngIf="passwordControl.hasError('required')">
                 Este campo es requerido

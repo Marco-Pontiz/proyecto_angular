@@ -43,6 +43,6 @@ export class UserFormDialogComponent {
       this.userForm.markAllAsTouched();
     } else {
       this.dialogRef.close(this.userForm.value);
-    }
+    }  
   }
 }
