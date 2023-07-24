@@ -39,10 +39,10 @@ export class UserFormDialogComponent {
     
   }
   onSubmit(): void {
-    if(this.userForm.invalid) {
+    if (this.userForm.invalid) {      
       this.userForm.markAllAsTouched();
     } else {
       this.dialogRef.close(this.userForm.value);
-    }  
+    } 
   }
 }
