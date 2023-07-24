@@ -1,6 +1,42 @@
-<form action="">
-    <input type="text" name="name">
-    <input type="text" name="surname">
-    <input type="email" name="email">
-    <input type="password" name="password">
+<form [formGroup]="userForm" class="grid" action="">
+    <div class="field">
+        <mat-form-field appaerance="outline">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="name" matInput type="text" name="name">
+            <mat-error *ngIf="nameControl.hasError('required')">
+                    Este campo es requerido
+            </mat-error>
+            <mat-error *ngIf="nameControl.hasError('minlength')">
+                El campo debe de tener al menos {{nameControl.errors?.['minlength']?.requiredLength}} caracteres
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="field">
+        <mat-form-field appaerance="outline">
+            <mat-label>Apellido</mat-label>
+            <input formControlName="surname" matInput type="text" name="surname">
+        </mat-form-field>
+    </div>
+
+    <div class="field">
+        <mat-form-field appaerance="outline">
+            <mat-label>Email</mat-label>
+            <input [formControl]="emailControl" matInput type="email" name="email">
+        </mat-form-field>
+    </div>
+
+    <div class="field">
+        <mat-form-field appaerance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input formControlPassword="password" matInput type="password" name="password">
+        </mat-form-field>
+    </div>
+
+    <div class="col-12 flex justify-content-end">
+        <button (click)="onSubmit()" type="submit" mat-raised-button color="primary">Guardar</button>
+    </div>
+
 </form>
+
+<pre> {{ userForm.value | json }}</pre>
