@@ -59,4 +59,9 @@ export class UsersComponent {
       },
     });
   }
+  onDeleteUser(userToDelete: User): void {
+    if(confirm(`Estás seguro en querer eliminar a ${userToDelete.name}?`)){
+      this.users = this.users.filter((u) => u.id !== userToDelete.id);
+    }
+  }
 }
