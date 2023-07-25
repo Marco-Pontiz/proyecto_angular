@@ -36,13 +36,7 @@ export class UsersComponent {
     .subscribe({
       next: (v) => {
         if (v) {
-          //this.users.push({
-            //id: this.users.length + 1,
-            //name: v.name,
-            //surname: v.surname,
-            //email: v.email,
-            //password: v.password
-          //})
+          //this.users.push()
           this.users = [
             ...this.users,{
             id: this.users.length + 1,
@@ -63,5 +57,24 @@ export class UsersComponent {
     if(confirm(`Estás seguro en querer eliminar a ${userToDelete.name}?`)){
       this.users = this.users.filter((u) => u.id !== userToDelete.id);
     }
+  }
+  onEditUser(userToEdit: User): void {
+    this.matDialog
+    .open(UserFormDialogComponent, {
+      data: userToEdit
+    })
+    .afterClosed()
+    .subscribe({
+      next: (userUpdate) => {
+        console.log(userUpdate)
+        if(userUpdate) {
+          this.users = this.users.map((user) => {
+            return user.id === userToEdit.id 
+            ? { ...user, ...userUpdate} //Verdadero
+            : user//Falso ;
+          })
+        }
+      },
+    });
   }
 }

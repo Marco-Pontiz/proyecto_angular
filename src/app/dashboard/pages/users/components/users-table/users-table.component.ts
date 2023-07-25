@@ -15,4 +15,7 @@ export class UsersTableComponent {
 
   @Output()
   deleteUser = new EventEmitter<User>();
+
+  @Output()
+  editUser = new EventEmitter<User>();
 }
