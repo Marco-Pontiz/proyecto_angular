@@ -5,6 +5,9 @@
 </button>
 </div>
 
+<h1>Alumnos registrados </h1>
+<h2>Fecha Actual: {{ today | date: 'short' }}</h2>
+
 <app-users-table
     [dataSource]="users" 
     (deleteUser)="onDeleteUser($event)"

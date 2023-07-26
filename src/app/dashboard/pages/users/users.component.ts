@@ -19,8 +19,9 @@ const ELEMENT_DATA: User[] = [
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-  public users: User[] = ELEMENT_DATA;
 
+  public users: User[] = ELEMENT_DATA;
+  public today = new Date();
 
   constructor(
     private matDialog: MatDialog
@@ -67,11 +68,11 @@ export class UsersComponent {
     .subscribe({
       next: (userUpdate) => {
         console.log(userUpdate)
-        if(userUpdate) {
+        if (userUpdate) {
           this.users = this.users.map((user) => {
             return user.id === userToEdit.id 
             ? { ...user, ...userUpdate} //Verdadero
-            : user//Falso ;
+            : user //Falso; 
           })
         }
       },
