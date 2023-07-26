@@ -10,6 +10,13 @@ const ELEMENT_DATA: User[] = [
     surname: 'White',
     email: 'Heisenberg@mail.com',
     password: '123456789'
+  },
+  {
+    id: 2,
+    name: 'Leo',
+    surname: 'Messi',
+    email: "leomessi@gmail.com",
+    password: '18/12/22'
   }
 ];
 
@@ -25,8 +32,30 @@ export class UsersComponent {
 
   constructor(
     private matDialog: MatDialog
-  ) {}
+  ) { 
+/*    interface Alumno {
+      nombre: string;
+      nota: number;
+    }
 
+    interface Profesor {
+      nombre: string;
+      email: string;
+    }
+    const alumno: Alumno = {nombre: 'juan', nota: 10};
+    const otroAlumno = {nombre: "Lucas", nota: 7};
+    const profesor: Profesor = {nombre: 'Emilia', email: 'emilia@gmail.com'}
+
+    function isAlumno(obj:unknown): obj is Alumno {
+      if (!obj) return false;
+      return typeof obj === 'object' && 'nombre' in obj && 'nota' in obj;
+    }
+    if(isAlumno(otroAlumno)) {
+
+    }*/
+  }
+
+  
   onCreateUser(): void {
     this.matDialog
     // Abro el Modal

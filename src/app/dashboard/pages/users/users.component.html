@@ -8,6 +8,10 @@
 <h1>Alumnos registrados </h1>
 <h2>Fecha Actual: {{ today | date: 'short' }}</h2>
 
+<p *appRepetir="1">
+    Los siguientes alumnos que se muestran en la tabla, tuvieron exito con la <span appResaltado>nota 9</span> en el examen de ingreso
+</p>
+
 <app-users-table
     [dataSource]="users" 
     (deleteUser)="onDeleteUser($event)"

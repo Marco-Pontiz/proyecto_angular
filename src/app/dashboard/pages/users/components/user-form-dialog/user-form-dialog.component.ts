@@ -23,7 +23,8 @@ export class UserFormDialogComponent {
   ]);
 
   emailControl = new FormControl< string | null > (null , [
-    Validators.required
+    Validators.required,
+    Validators.email
   ]);
   passwordControl = new FormControl< string | null > (null ,[
     Validators.required
