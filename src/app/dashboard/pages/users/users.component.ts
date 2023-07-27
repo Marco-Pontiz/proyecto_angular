@@ -1,24 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFormDialogComponent } from './components/user-form-dialog/user-form-dialog.component';
 import { User } from './models';
+import { UserService } from './user.service';
 
-const ELEMENT_DATA: User[] = [
-  {
-    id: 1,
-    name: 'Walter',
-    surname: 'White',
-    email: 'Heisenberg@mail.com',
-    password: '123456789'
-  },
-  {
-    id: 2,
-    name: 'Leo',
-    surname: 'Messi',
-    email: "leomessi@gmail.com",
-    password: '18/12/22'
-  }
-];
+ // const ELEMENT_DATA: User[] = ;
 
 @Component({
   selector: 'app-users',
@@ -27,32 +13,16 @@ const ELEMENT_DATA: User[] = [
 })
 export class UsersComponent {
 
-  public users: User[] = ELEMENT_DATA;
+  public users: User[] = [];
   public today = new Date();
 
   constructor(
-    private matDialog: MatDialog
+    private matDialog: MatDialog, 
+    private userService: UserService,
+    @Inject('IS_DEV') private isDev: boolean,
   ) { 
-/*    interface Alumno {
-      nombre: string;
-      nota: number;
-    }
-
-    interface Profesor {
-      nombre: string;
-      email: string;
-    }
-    const alumno: Alumno = {nombre: 'juan', nota: 10};
-    const otroAlumno = {nombre: "Lucas", nota: 7};
-    const profesor: Profesor = {nombre: 'Emilia', email: 'emilia@gmail.com'}
-
-    function isAlumno(obj:unknown): obj is Alumno {
-      if (!obj) return false;
-      return typeof obj === 'object' && 'nombre' in obj && 'nota' in obj;
-    }
-    if(isAlumno(otroAlumno)) {
-
-    }*/
+    this.users = this.userService.getUsers();
+    console.log(this.isDev);
   }
 
   
