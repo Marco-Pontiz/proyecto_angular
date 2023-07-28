@@ -21,7 +21,8 @@
 
     <main class="p-3">
         <!-- <app-home></app-home> -->
-        <app-users></app-users>
+        <button (click)="showPage = !showPage">Alternar Pagina</button>
+        <app-users *ngIf="showPage"></app-users>
     </main>
 
     </div>
