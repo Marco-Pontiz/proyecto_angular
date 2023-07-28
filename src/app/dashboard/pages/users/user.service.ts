@@ -45,7 +45,7 @@ export class UserService {
     this.sendNotification$.next(notification);
   }
 
-  
+
 
   loadUsers(): void {
     this._users$.next(this.users);

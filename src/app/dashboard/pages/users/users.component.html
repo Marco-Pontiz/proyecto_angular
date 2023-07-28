@@ -12,8 +12,16 @@
     Los siguientes alumnos que se muestran en la tabla, tuvieron exito con la <span appResaltado>nota 9</span> en el examen de ingreso
 </p>
 
+<h1>{{ loading ? 'Cargando...': '' }}</h1>
+
+<div *ngIf="!loading">
+    {{ nombres }}
+    <br>
+    {{ numeros }}
+</div>
+
 <app-users-table
-    [dataSource]="users" 
+    [dataSource]="(users | async) || []" 
     (deleteUser)="onDeleteUser($event)"
     (editUser)="onEditUser($event)"
 ></app-users-table>

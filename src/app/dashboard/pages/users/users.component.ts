@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserFormDialogComponent } from './components/user-form-dialog/user-form-dialog.component';
 import { User } from './models';
 import { UserService } from './user.service';
-import { Observable, Subject, Subscription, map, takeUntil } from 'rxjs';
+import { Observable, Subject, Subscription, delay, filter, forkJoin, map, of, takeUntil, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
  // const ELEMENT_DATA: User[] = ;
 
@@ -15,30 +16,90 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsersComponent implements OnDestroy {
 
-  public users: User[] = [];
+  public users: Observable<User[]>;
   public today = new Date();
   public semaforoSubscription?: Subscription;
   public allSubs: Subscription[] = [];
   public destroyed = new Subject<boolean>();
+  public loading = false;
+  public nombres: string[] = [];
+  public numeros : number[] = [];
 
   constructor(
     private matDialog: MatDialog, 
     private userService: UserService,
+    private notifier: NotifierService,
     @Inject('IS_DEV') private isDev: boolean,
-  ) { 
+  ) {
+
+    this.users = this.userService.getUsers().pipe(
+        // Primero esto
+      tap((valorOriginal) => console.log('VALOR ANTES DEL MAP', valorOriginal)),
+        // Luego esto
+      map((valorOriginal) => 
+        valorOriginal.map((usuario) => ({
+          ...usuario,
+          name:usuario.name.toUpperCase(),
+          surname: usuario.surname.toUpperCase()
+        }))
+      ),
+      // Por ultimo esto
+      tap((valorMapeado) => console.log('VALOR DESPUÉS DEL MAP', valorMapeado)),
+    );
+
+    /* Operador MAP, FILTER
+    of(1,2,3,4,5)
+      .pipe(
+        map((v) => v * 2),
+          //2, 4
+        filter((valorMapeado) => valorMapeado < 6)
+      )
+      .subscribe({
+        next: (v) => {
+          console.log(v);
+        }
+      }) */
+
+      const obs1$ = of(['Stefano', 'Juan', 'Luca']).pipe(delay(1000));
+      const obs2$ = of([1, 2, 3, 4, 5]).pipe(delay(1500), map((r) => r.map((n) => n * 2)));
+
+      this.loading = true;
+/*
+      obs1$.subscribe({
+          //Despues de 1000ms 
+        next: (v) => (this.nombres = v),
+        complete: () => (this.loading = false),
+      });
+
+      obs2$.subscribe({
+          //Despues de 1500ms
+        next: (v) => (this.numeros = v),
+        complete: () => (this.loading = false),
+      }); */
+
+      forkJoin([
+        obs1$,
+        obs2$
+      ]).subscribe({
+        next: ([nombres, numeros]) => {
+          //console.log(result);
+          this.nombres = nombres;
+          this.numeros = numeros;
+        },
+        complete: () => (this.loading = false),
+      });
 
       // Primero cargo los usuarios 
       this.userService.loadUsers();
       // Luego los obtengo
-      this.userService.getUsers().subscribe({
+/*      this.userService.getUsers().subscribe({
           //then
-        next: (v) => {
-          console.log(v);
-          this.users = v;
+        next: (users) => {
+          // console.log(v);
+          this.users = users;
           //this.userService.sendNotification('Se añadieron más alumnos');
         }
-      });
-
+      }); */
         // Repaso Asincronia
         //------------------
         
@@ -70,10 +131,11 @@ export class UsersComponent implements OnDestroy {
     // PIPE viene del ingles tuberia 
     //  ---------------------------- 
 
-  /*
+/*  
       semaforo
-        .pipe(
-          takeUntil(this.destroyed),
+      .pipe(
+          //Escucha emisiones hasta que this.destroyed
+          //takeUntil(this.destroyed),
           map((color) => color.toUpperCase())
         )
         .subscribe({
@@ -112,7 +174,7 @@ export class UsersComponent implements OnDestroy {
   
   ngOnDestroy(): void {
     console.log('Se Destruyo!');
-      // this.semaforoSubscription?.unsubscribe();
+      //this.semaforoSubscription?.unsubscribe();
       // this.allSubs.forEach((s) => s.unsubscribe());
 
       this.destroyed.next(true);
@@ -139,8 +201,10 @@ export class UsersComponent implements OnDestroy {
             },
           ]; */
 
+          this.notifier.showSuccess('Se cargaron los alumnos de forma correcta')
+
           this.userService.createUser({
-            id: this.users.length + 1,
+            id: new Date().getTime(),
             name: v.name,
             surname: v.surname,
             email: v.email,
@@ -156,7 +220,7 @@ export class UsersComponent implements OnDestroy {
 
   onDeleteUser(userToDelete: User): void {
     if(confirm(`Estás seguro en querer eliminar a ${userToDelete.name}?`)){
-      this.users = this.users.filter((u) => u.id !== userToDelete.id);
+      // this.users = this.users.filter((u) => u.id !== userToDelete.id);
     }
   }
 
@@ -170,11 +234,11 @@ export class UsersComponent implements OnDestroy {
       next: (userUpdate) => {
         console.log(userUpdate)
         if (userUpdate) {
-          this.users = this.users.map((user) => {
+/*          this.users = this.users.map((user) => {
             return user.id === userToEdit.id 
             ? { ...user, ...userUpdate} //Verdadero
             : user //Falso; 
-          })
+          }); */
         }
       },
     });
