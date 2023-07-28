@@ -22,14 +22,22 @@ export class UsersComponent implements OnDestroy {
   public destroyed = new Subject<boolean>();
 
   constructor(
-
     private matDialog: MatDialog, 
     private userService: UserService,
-
     @Inject('IS_DEV') private isDev: boolean,
   ) { 
-    this.users = this.userService.getUsers();
-    console.log(this.isDev);
+
+      // Primero cargo los usuarios 
+      this.userService.loadUsers();
+      // Luego los obtengo
+      this.userService.getUsers().subscribe({
+          //then
+        next: (v) => {
+          console.log(v);
+          this.users = v;
+          //this.userService.sendNotification('Se añadieron más alumnos');
+        }
+      });
 
         // Repaso Asincronia
         //------------------
@@ -61,35 +69,44 @@ export class UsersComponent implements OnDestroy {
     // -----------------------------
     // PIPE viene del ingles tuberia 
     //  ---------------------------- 
-      semaforo.pipe(
-        takeUntil(this.destroyed),
-        map((color) => color.toUpperCase())
-        ).subscribe({
+
+  /*
+      semaforo
+        .pipe(
+          takeUntil(this.destroyed),
+          map((color) => color.toUpperCase())
+        )
+        .subscribe({
           // Cuando el observable emite
+          // then
         next: (color) => {console.log(color)},
           // Cuando el observable emite el error
+          // Catch
         error: () => {},
           // Cuando el observable se completa
+          // Finally
         complete: () => {
           console.log('Se completo!');
         },
-      }) 
-
+      }) */
+  
+  /*
     meDevuelveElDinero
       //Cuando la promesa se cumple
-//  .then((value) => console.log(value))
+    .then((value) => console.log(value))
       //Cuando falla..
     .catch((error) => alert(error))
       //Cuando finaliza todo el proceso, se haya hecho o no
     .finally(() => {});
+  */
 
-      /*
+  /*
       console.log('First')
       fetch('https://reqres.in/api/users?page=2')
         .then((respuestaDelServidor) => respuestaDelServidor.json())
         .then((data) => console.log('Middle'))
       console.log('Last')
-      */
+  */
   }
   
   
@@ -136,11 +153,13 @@ export class UsersComponent implements OnDestroy {
       },
     });
   }
+
   onDeleteUser(userToDelete: User): void {
     if(confirm(`Estás seguro en querer eliminar a ${userToDelete.name}?`)){
       this.users = this.users.filter((u) => u.id !== userToDelete.id);
     }
   }
+
   onEditUser(userToEdit: User): void {
     this.matDialog
     .open(UserFormDialogComponent, {
@@ -160,4 +179,5 @@ export class UsersComponent implements OnDestroy {
       },
     });
   }
+
 }
