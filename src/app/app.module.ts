@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardModule } from './dashboard/dashboard.module';
 import eslocale from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
+import { AppRoutingModule } from './app-routing.component';
+import { AuthModule } from './auth/auth.module';
 
 registerLocaleData(eslocale);
 
@@ -14,8 +16,10 @@ registerLocaleData(eslocale);
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
-    DashboardModule,
+    DashboardModule, //dashboard module
+    AuthModule //auth module
   ],
   providers: [
     {

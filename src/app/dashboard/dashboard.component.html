@@ -1,28 +1,24 @@
 <mat-drawer-container class="example-container" autosize>
     <!-- Sidebar -->
-    <mat-drawer mode="over" #drawer class="example-sidenav" mode="side">
-        <ul>
-            <li>
-                <a href="Inicio"></a>
-            </li>
-        </ul>
+    <mat-drawer 
+        opened 
+        mode="over" 
+        #drawer 
+        class="example-sidenav"
+        mode="side">
+            <app-nav-menu></app-nav-menu>
     </mat-drawer>
     <!-- Fin del Sidebar -->
+    
     <!-- Content Wrapper -->
     <div class="example-sidenav-content">
-        <!-- Toolbar -->
-        <mat-toolbar>
-            <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-                <mat-icon>menu</mat-icon>
-            </button>
-            <span>Escuela Cuyana</span>
-        </mat-toolbar>
-    <!-- Fin del Toolbar -->
+        <app-toolbar [drawer]="drawer"></app-toolbar>
 
     <main class="p-3">
+        <router-outlet></router-outlet>
         <!-- <app-home></app-home> -->
-        <button (click)="showPage = !showPage">Alternar Pagina</button>
-        <app-users *ngIf="showPage"></app-users>
+        <!-- <button (click)="showPage = !showPage">Alternar Pagina</button> -->
+        <!-- <app-users *ngIf="showPage"></app-users> -->
     </main>
 
     </div>
