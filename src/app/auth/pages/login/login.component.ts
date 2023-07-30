@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
   login(): void {
-    /// authService.login({ .... }).subscribe({
     
-    // })
   }
 }

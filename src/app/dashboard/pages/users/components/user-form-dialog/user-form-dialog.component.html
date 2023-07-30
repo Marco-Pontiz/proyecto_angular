@@ -1,4 +1,10 @@
-<h1 mat-dialog-title>Crear Alumno</h1>
+<h1 mat-dialog-title>
+    {{ 
+        editingUser 
+        ? 'Editando a ' + editingUser.name + " " + editingUser.surname 
+        : "Crear alumno"
+    }}
+</h1>
 <div mat-dialog-content>
 <form [formGroup]="userForm" class="grid">
 
@@ -14,7 +20,7 @@
                     {{ error | controlErrorMessage }}
             </mat-error>
 
-        <!--     
+            
             <mat-error *ngIf="nameControl.hasError('minlength')">
                 El campo debe de tener al menos {{nameControl.errors?.['minlength']?.requiredLength}} caracteres
             </mat-error>
@@ -22,8 +28,7 @@
             <mat-error *ngIf="nameControl.hasError('noSebastian')">
                 Lo sentimos... ese nombre no está permitido
             </mat-error>
-        -->
-
+        
         </mat-form-field>
         <pre>{{ nameControl.errors | keyvalue | json }}</pre>
     </div>
@@ -40,11 +45,11 @@
                 {{ error | controlErrorMessage }}
             </mat-error>
 
-            <!--
+            
             <mat-error *ngIf="surnameControl.hasError('minlength')">
                 Este campo debe e tener al menos {{surnameControl.errors?.['minlength']?.requiredLength}} caracteres
             </mat-error>
-            -->
+            
         </mat-form-field>
     </div>
 

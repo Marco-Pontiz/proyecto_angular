@@ -10,7 +10,7 @@ import { User } from '../../models';
   styleUrls: ['./user-form-dialog.component.css']
 })
 export class UserFormDialogComponent {
-
+  editingUser?: User;
   nameControl = new FormControl< string | null >(null, [
     Validators.required, 
     Validators.minLength(2),
@@ -41,15 +41,15 @@ export class UserFormDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<UserFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data?: User,
+    @Inject(MAT_DIALOG_DATA) private data?: User
   ) {
 /*  this.userForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.min(2), noSebastianValidator()]],
       surname: [null, [Validators.required, Validators.min(2)]],
 
     }); */
-
     if(this.data){
+      this.editingUser = this.data;
       this.nameControl.setValue(this.data.name);
       this.surnameControl.setValue(this.data.surname);
       this.passwordControl.setValue(this.data.password);
