@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User } from './models';
-import { BehaviorSubject, Observable, Subject, delay, of } from 'rxjs';
+import { CreateUserData, UpdateUserData, User } from './models';
+import { BehaviorSubject, Observable, Subject, delay, of, take } from 'rxjs';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 const USER_DB: Observable<User[]> = of(
 [
@@ -24,15 +25,13 @@ const USER_DB: Observable<User[]> = of(
   providedIn: 'root'
 })
 export class UserService {
+  
   private subjectUsers$ = new Subject<User[]>();
   private sendNotification$ = new Subject<string>();
-  //private sendNotificationObservable$ = this.sendNotification$.asObservable();
   private _users$ = new BehaviorSubject<User[]>([]);
   private users$ = this._users$.asObservable();
 
-  constructor() {
-    //this.sendNotification$.next()
-    //this.sendNotificationObservable$.subscribe({})
+  constructor(private notifier: NotifierService) {
 
     this.sendNotification$.subscribe({
       next: (message) => alert(message)
@@ -55,29 +54,36 @@ export class UserService {
     return this.users$;
   }
 
-  createUser(user: User): void {
-    USER_DB.subscribe({
+  createUser(user: CreateUserData): void {
+      // Take 1 = Solo quiero recibir una emisión
+    this.users$.pipe(take(1)).subscribe({     // Video Video Complementario de RXJS, UsersServices:  Create, Update, Delete con programación Reactiva... Minuto: 00:21:27
       next: (arrayActual) => {
-        this._users$.next([...arrayActual, user]);
+        this._users$.next([...arrayActual, {...user, id: arrayActual.length + 1},
+        ]);
+        this.notifier.showSuccess('Alumno creado!')
       }
     })
   }
   
-/*
-  deleteUserById(user: User): void {
-    this.users = [
-      ...this.users,
-      user,
-    ]
+  updateUserById(id: number, usuarioActualizado: UpdateUserData): void {
+    this.users$.pipe(take(1)).subscribe({
+      next: (arrayActual) => {
+        this._users$.next(
+          arrayActual.map((u) => 
+            u.id === id ? {...u, ...usuarioActualizado} : u
+          )
+        );
+        this.notifier.showSuccess('Alumno Actualizado')
+      },
+    });
   }
-  
-  updateUserById(user: User): void {
-    this.users = [
-      ...this.users,
-      user,
-    ]
-  }
-  
-  */
 
+    deleteUserById(id: number): void {
+      this._users$.pipe(take(1)).subscribe({
+        next: (arrayActual) => {
+          this._users$.next(arrayActual.filter((u) => u.id !== id));
+          this.notifier.showSuccess('Alumno eliminado');
+        },
+    });
+  }
 }
