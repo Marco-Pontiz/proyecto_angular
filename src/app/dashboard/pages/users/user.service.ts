@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CreateUserData, UpdateUserData, User } from './models';
-import { BehaviorSubject, Observable, Subject, delay, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, delay, map, of, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 
 const USER_DB: Observable<User[]> = of(
@@ -25,8 +25,6 @@ const USER_DB: Observable<User[]> = of(
   providedIn: 'root'
 })
 export class UserService {
-  
-  private subjectUsers$ = new Subject<User[]>();
   private sendNotification$ = new Subject<string>();
   private _users$ = new BehaviorSubject<User[]>([]);
   private users$ = this._users$.asObservable();
@@ -42,12 +40,17 @@ export class UserService {
     this.sendNotification$.next(notification);
   }
 
-
-
   loadUsers(): void {
     USER_DB.subscribe({
       next: (usuariosFromDb) => this._users$.next(usuariosFromDb),
     });
+  }
+
+  getUsersByiD(id: number) {
+    return this.users$.pipe(
+      take(1),
+      map(( users ) => users.find((u) => u.id === id)),
+    )
   }
 
   getUsers(): Observable<User[]> {
@@ -56,9 +59,9 @@ export class UserService {
 
   createUser(user: CreateUserData): void {
       // Take 1 = Solo quiero recibir una emisión
-    this.users$.pipe(take(1)).subscribe({     // Video Video Complementario de RXJS, UsersServices:  Create, Update, Delete con programación Reactiva... Minuto: 00:21:27
-      next: (arrayActual) => {
-        this._users$.next([...arrayActual, {...user, id: arrayActual.length + 1},
+    this.users$.pipe(take(1)).subscribe({     
+        next: (arrayActual) => {
+          this._users$.next([...arrayActual, {...user, id: arrayActual.length + 1},
         ]);
         this.notifier.showSuccess('Alumno creado!')
       }

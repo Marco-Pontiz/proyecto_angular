@@ -9,15 +9,7 @@ import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-    AuthComponent,
-    LoginComponent,
-    RegisterComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule
-  ]
+  declarations: [ AuthComponent, LoginComponent, RegisterComponent ],
+  imports: [ CommonModule, SharedModule, RouterModule ]
 })
 export class AuthModule { }

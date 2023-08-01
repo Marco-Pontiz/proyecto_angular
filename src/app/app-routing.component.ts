@@ -7,6 +7,7 @@ import { UsersComponent } from './dashboard/pages/users/users.component';
 import { UserDetailComponent } from './dashboard/pages/users/pages/user-detail/user-detail.component';
 import { LoginComponent } from './auth/pages/login/login.component';
 import { RegisterComponent } from './auth/pages/register/register.component';
+import { ProductsComponent } from './dashboard/pages/products/products.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
                     component: UserDetailComponent
                 }
             ]
+        },
+        {
+            path: 'products',
+            component: ProductsComponent,
         },
 
         {

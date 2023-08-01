@@ -7,6 +7,7 @@ import eslocale from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.component';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './dashboard/pages/products/products.module';
 
 registerLocaleData(eslocale);
 
@@ -19,7 +20,9 @@ registerLocaleData(eslocale);
     AppRoutingModule,
     BrowserAnimationsModule,
     DashboardModule, //dashboard module
-    AuthModule //auth module
+    AuthModule, //auth module
+    ProductsModule,
+    
   ],
   providers: [
     {
