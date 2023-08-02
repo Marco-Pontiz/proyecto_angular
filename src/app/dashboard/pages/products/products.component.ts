@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public data$: Observable<Product[]>;
 
   
-  public displayedColumns = ['id', 'name', 'description', 'price', 'stock'];
+  public displayedColumns = ['id', 'name', 'description', 'price', 'stock', 'actions'];
 
   constructor(private productService: ProductService) {
     this.data$ = this.productService.getProducts();
