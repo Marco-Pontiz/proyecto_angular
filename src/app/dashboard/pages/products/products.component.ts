@@ -37,4 +37,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   onCreate(): void {
     this.productService.create();
   }
+
+  onDelete(id: number): void {
+    this.productService.deleteById(id);
+  }
 }

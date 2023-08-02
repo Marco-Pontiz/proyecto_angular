@@ -57,4 +57,14 @@ export class ProductService {
       }
     })
   }
+
+  deleteById(id: number): void {
+    this.products$.pipe(take(1)).subscribe({
+      next: (arrayActual) => {
+        this.products$.next(
+          arrayActual.filter((p) => p.id !== id)
+        );
+      }
+    })
+  }
 }
