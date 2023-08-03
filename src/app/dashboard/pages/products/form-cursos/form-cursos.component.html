@@ -1,3 +1,5 @@
+<h1 mat-dialog-title>Crear curso</h1>
+<div mat-dialog-content>
 <form [formGroup]="cursoForm" class="grid" action="">
 
 <div class="col-6 field">
@@ -39,7 +41,7 @@
 <div class="col-6 field">
     <mat-form-field class="w-full" appearance="outline">
         <mat-label>Stock</mat-label>
-        <input formControlNmae="stock" matInput type="text" name="stock">
+        <input formControlName="stock" matInput type="number" name="stock">
 
         <mat-error *ngIf="stockControl.invalid && stockControl.hasError('required')">
             Este campo es requerido
@@ -48,10 +50,10 @@
     </mat-form-field>
 </div>
 
-<div class="col-12 flex justify-content-end">
-    <button (click)="onSubmit()" type="submit" color="primary" mat-flat-button>Guardar</button>
+</form>
 </div>
 
-</form>
-
-<pre>{{ cursoForm.value | json }}</pre>
+<div class="flex justify-content-end" mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button (click)="onSubmit()" type="submit" color="primary" mat-flat-button>Guardar</button>
+</div>

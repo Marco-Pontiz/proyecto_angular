@@ -1,11 +1,11 @@
-<h1>Cursos</h1>
-
+<div class="mb-5">
 <button (click)="onCreateCurso()" mat-flat-button color="primary" type="button">
     <mat-icon>add</mat-icon>
     Crear Curso
 </button>
+</div>
 
-    <!--<pre><code>{{ data$ | async | json }}</code></pre> -->
+<h1>Cursos disponibles</h1>
 
 <table mat-table [dataSource]="(data$ | async) || []" class="mat-elevation-z8">
 

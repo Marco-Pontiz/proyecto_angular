@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Product } from '../models';
+
 
 @Component({
   selector: 'app-form-cursos',
@@ -28,7 +31,16 @@ export class FormCursosComponent {
     stock: this.stockControl
   })
 
+  constructor(private dialogRef: MatDialogRef<FormCursosComponent>) {
+
+  }
+
   onSubmit(): void {
-    alert(JSON.stringify(this.cursoForm.value));
+    if(this.cursoForm.invalid) {
+      this.cursoForm.markAllAsTouched();
+    } else {
+      this.dialogRef.close(this.cursoForm.value);
+    }
+
   }
 }
