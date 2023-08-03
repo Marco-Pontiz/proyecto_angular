@@ -14,10 +14,22 @@
 
 <div class="col-6 field">
     <mat-form-field class="w-full" appearance="outline">
-        <mat-label>descripción</mat-label>
+        <mat-label>Descripción</mat-label>
         <input formControlName="description" matInput type="text" name="description">
 
         <mat-error *ngIf="descriptionControl.invalid && descriptionControl.hasError('required')">
+            Este campo es requerido
+        </mat-error>
+
+    </mat-form-field>
+</div>
+
+<div class="col-6 field">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Precio</mat-label>
+        <input formControlName="description" matInput type="text" name="description">
+
+        <mat-error *ngIf="priceControl.invalid && priceControl.hasError('required')">
             Este campo es requerido
         </mat-error>
 
