@@ -1,6 +1,6 @@
 <h1>Cursos</h1>
 
-<button (click)="onCreate()" mat-flat-button color="primary" type="button">
+<button (click)="onCreateCurso()" mat-flat-button color="primary" type="button">
     <mat-icon>add</mat-icon>
     Crear Curso
 </button>
@@ -58,7 +58,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
-
-<app-form-cursos></app-form-cursos>
 

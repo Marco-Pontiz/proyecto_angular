@@ -27,4 +27,8 @@ export class FormCursosComponent {
     price: this.priceControl,
     stock: this.stockControl
   })
+
+  onSubmit(): void {
+    alert(JSON.stringify(this.cursoForm.value));
+  }
 }

@@ -48,6 +48,10 @@
     </mat-form-field>
 </div>
 
+<div class="col-12 flex justify-content-end">
+    <button (click)="onSubmit()" type="submit" color="primary" mat-flat-button>Guardar</button>
+</div>
+
 </form>
 
 <pre>{{ cursoForm.value | json }}</pre>

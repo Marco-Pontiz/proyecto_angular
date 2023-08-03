@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from './models';
 import { ProductService } from './product.service';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, take } from 'rxjs';
+import { FormCursosComponent } from './form-cursos/form-cursos.component';
 
 @Component({
   selector: 'app-products',
@@ -17,9 +19,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   
   public displayedColumns = ['id', 'name', 'description', 'price', 'stock', 'actions'];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private matDialog: MatDialog) {
     this.data$ = this.productService.getProducts();
   }
+
+  onCreateCurso(): void {
+    this.matDialog.open(FormCursosComponent)
+  }
+
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
   }
