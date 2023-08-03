@@ -27,7 +27,7 @@
 <div class="col-6 field">
     <mat-form-field class="w-full" appearance="outline">
         <mat-label>Precio</mat-label>
-        <input formControlName="description" matInput type="text" name="description">
+        <input formControlName="price" matInput type="number" name="price">
 
         <mat-error *ngIf="priceControl.invalid && priceControl.hasError('required')">
             Este campo es requerido
