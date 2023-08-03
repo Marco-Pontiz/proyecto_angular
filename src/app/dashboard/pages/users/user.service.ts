@@ -58,7 +58,6 @@ export class UserService {
   }
 
   createUser(user: CreateUserData): void {
-      // Take 1 = Solo quiero recibir una emisión
     this.users$.pipe(take(1)).subscribe({     
         next: (arrayActual) => {
           this._users$.next([...arrayActual, {...user, id: arrayActual.length + 1},

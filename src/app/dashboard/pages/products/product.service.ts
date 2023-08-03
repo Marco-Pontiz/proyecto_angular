@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
-import { Product } from './models';
+import { Product, CreateProductData } from './models';
+import { NotifierService } from 'src/app/core/services/notifier.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import { Product } from './models';
 export class ProductService {
 
   private products$ = new BehaviorSubject<Product[]>([]);
+  private _products$ = this.products$.asObservable();
 
-  constructor() { }
+  constructor(private notifier: NotifierService) { }
 
   getProducts(): Observable<Product[]> {
     return this.products$.asObservable();
@@ -41,6 +43,18 @@ export class ProductService {
       }
     ])
   }
+
+  createProduct(product: CreateProductData): void {
+    this._products$.pipe(take(1)).subscribe({
+      next: (arrayActual) => {
+        this.products$.next([...arrayActual, {...product, id: arrayActual.length + 1},
+        ]);
+        this.notifier.showSuccess('Curso Creado')
+      }
+    })
+  }
+
+  
   create(): void{
     this.products$.pipe(take(1)).subscribe({
 
@@ -57,6 +71,7 @@ export class ProductService {
       }
     })
   }
+  
 
   deleteById(id: number): void {
     this.products$.pipe(take(1)).subscribe({

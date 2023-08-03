@@ -35,11 +35,8 @@ export class UsersComponent implements OnDestroy {
 
   onCreateUser(): void {
     this.matDialog
-        // Abro el Modal
     .open(UserFormDialogComponent)
-        // Y después de que cierre
     .afterClosed()
-        // Hago esto... 
     .subscribe({
       next: (v) => {
         if (v) {

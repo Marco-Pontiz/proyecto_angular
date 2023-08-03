@@ -20,29 +20,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.data$ = this.productService.getProducts();
   }
 
-  onCreateCurso(): void {
+  onCreateProduct(): void {
     this.matDialog
-      .open(FormCursosComponent)
-      .afterClosed()
-      .subscribe({
-        next:(v) => {
-          if (v) {
-            this.dataSource = [
-              ...this.dataSource,
-              {
-                id: this.dataSource.length + 1,
-                name: v.name,
-                description: v.description,
-                price: v.price,
-                stock: v.stock,
-              }
-            ]
-            console.log('Recibimos el dato: ', v);
-          } else {
-            console.log('Se cancelo el proceso');
-          }
+    .open(FormCursosComponent)
+    .afterClosed()
+    .subscribe({
+      next: (v) => {
+        if (v) {
+          this.productService.createProduct({
+            name: v.name,
+            description: v.description,
+            price: v.price,
+            stock: v.stock,
+          })
+          console.log('Curso creado')
+        } else {
+          console.log('Falla al cargar el curso')
         }
-      })
+      }
+    })
   }
 
   ngOnDestroy(): void {
