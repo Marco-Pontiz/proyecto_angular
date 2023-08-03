@@ -1,0 +1,41 @@
+<form [formGroup]="cursoForm" class="grid" action="">
+
+<div class="col-6 field">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="name" matInput type="text" name="name">
+
+        <mat-error *ngIf="nameControl.invalid && nameControl.hasError('required')">
+            Este campo es requerido
+        </mat-error>
+
+    </mat-form-field>
+</div>
+
+<div class="col-6 field">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>descripción</mat-label>
+        <input formControlName="description" matInput type="text" name="description">
+
+        <mat-error *ngIf="descriptionControl.invalid && descriptionControl.hasError('required')">
+            Este campo es requerido
+        </mat-error>
+
+    </mat-form-field>
+</div>
+
+<div class="col-6 field">
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-label>Stock</mat-label>
+        <input formControlNmae="stock" matInput type="text" name="stock">
+
+        <mat-error *ngIf="stockControl.invalid && stockControl.hasError('required')">
+            Este campo es requerido
+        </mat-error>
+
+    </mat-form-field>
+</div>
+
+</form>
+
+<pre>{{ cursoForm.value | json }}</pre>
