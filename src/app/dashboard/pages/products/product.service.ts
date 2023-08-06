@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
-import { Product, CreateProductData } from './models';
+import { Product, CreateProductData, UpdateProductData } from './models';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 
 @Injectable({
@@ -81,5 +81,22 @@ export class ProductService {
         );
       }
     })
+  }
+
+  editById(id: number, updateData: UpdateProductData): void {
+    this._products$.pipe(take(1)).subscribe(products => {
+      const productIndex = products.findIndex(p => p.id === id);
+      if (productIndex !== -1) {
+        const updatedProduct: Product = {
+          ...products[productIndex],
+          ...updateData // Actualiza solo los campos que se hayan proporcionado
+        };
+  
+        const updatedProducts = [...products];
+        updatedProducts[productIndex] = updatedProduct;
+        this.products$.next(updatedProducts);
+        this.notifier.showSuccess('Curso Editado');
+      }
+    });
   }
 }

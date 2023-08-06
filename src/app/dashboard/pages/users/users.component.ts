@@ -71,5 +71,4 @@ export class UsersComponent implements OnDestroy {
       },
     });
   }
-
 }

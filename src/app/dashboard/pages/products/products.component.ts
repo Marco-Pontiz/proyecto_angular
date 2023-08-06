@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Product } from './models';
+import { Product, UpdateProductData } from './models';
 import { ProductService } from './product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public displayedColumns = ['id', 'name', 'description', 'price', 'stock', 'actions'];
 
   constructor(private productService: ProductService, private matDialog: MatDialog) {
+    
     this.data$ = this.productService.getProducts();
   }
 
@@ -55,4 +56,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   onDelete(id: number): void {
     this.productService.deleteById(id);
   }
+
+  onEdit(id: number): void {
+    const updateData: UpdateProductData = {
+      
+    };
+
+    this.productService.editById(id, updateData);
+  } 
 }
