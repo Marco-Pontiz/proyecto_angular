@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { ProductsModule } from './pages/products/products.module';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 
 @NgModule({
@@ -28,9 +29,10 @@ import { ProductsModule } from './pages/products/products.module';
     MatListModule,
     MatIconModule,
     HomeModule,
-    ProductsModule,
+    ProductsModule, //Productos
+    UsersModule,
     RouterModule,
-    UsersModule
+    DashboardRoutingModule, //Modulos de rutas
   ],
   exports: [
     DashboardComponent
