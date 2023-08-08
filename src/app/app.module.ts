@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { DashboardModule } from './dashboard/dashboard.module';
 import eslocale from '@angular/common/locales/es-AR';
 import { registerLocaleData } from '@angular/common';
-import { AppRoutingModule } from './app-routing.component';
+import { AppRoutingModule } from './app-routing.module';
 // import { AuthModule } from './auth/auth.module';
-import { ProductsModule } from './dashboard/pages/products/products.module';
+// import { ProductsModule } from './dashboard/pages/products/products.module';
 
 registerLocaleData(eslocale);
 
@@ -19,9 +19,9 @@ registerLocaleData(eslocale);
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-  //  DashboardModule, //dashboard module
+  //  DashboardModule, // dashboard module
   //  AuthModule, //auth module
-    ProductsModule,
+  //  ProductsModule, // product module
     
   ],
   providers: [

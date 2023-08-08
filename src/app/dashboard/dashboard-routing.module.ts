@@ -1,8 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { HomeComponent } from "./pages/home/home.component";
-import { UserDetailComponent } from "./pages/users/pages/user-detail/user-detail.component";
-import { UsersComponent } from "./pages/users/users.component";
 import { ProductsComponent } from "./pages/products/products.component";
 
 @NgModule({
@@ -14,24 +12,19 @@ import { ProductsComponent } from "./pages/products/products.component";
             },
             {
                 path:'users',
-                children: [
-                    {
-                        path:'',
-                        component: UsersComponent
-                    },
-                    {
-                        path:':id',
-                        component: UserDetailComponent
-                    }
-                ]
+                loadChildren: () => import('./pages/users/users.module').then((m) => m.UsersModule)
             },
             {
                 path:'products',
                 component: ProductsComponent
             },
             {
+                path:'categories',
+                loadChildren: () => import('./pages/categories/categories.module').then((m) => m.CategoriesModule),
+            },
+            {
                 path: '**',
-                redirectTo: 'users'
+                redirectTo: '/users'
             }
         ])
     ],
