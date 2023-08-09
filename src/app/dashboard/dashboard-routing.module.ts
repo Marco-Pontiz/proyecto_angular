@@ -16,7 +16,7 @@ import { ProductsComponent } from "./pages/products/products.component";
             },
             {
                 path:'products',
-                component: ProductsComponent
+                loadChildren: () => import('./pages/products/products.module').then((m) => m.ProductsModule)
             },
             {
                 path:'categories',
