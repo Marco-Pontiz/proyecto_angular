@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "name": "Franklin",
+      "surname": "Clinton",
+      "email": "FC@gmail.com",
+      "password": "123456789",
+      "id": 1
+    }
+  ],
+  "products": []
+}

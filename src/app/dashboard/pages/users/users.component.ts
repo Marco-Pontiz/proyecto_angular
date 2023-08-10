@@ -14,6 +14,7 @@ import { NotifierService } from 'src/app/core/services/notifier.service';
 export class UsersComponent implements OnDestroy {
 
   public users: Observable<User[]>;
+  public isLoading$: Observable<boolean>;
   public today = new Date();
   public destroyed = new Subject<boolean>();
   public loading = false;
@@ -21,11 +22,11 @@ export class UsersComponent implements OnDestroy {
   constructor(
     private matDialog: MatDialog, 
     private userService: UserService,
-    private notifier: NotifierService,
     @Inject('IS_DEV') private isDev: boolean,
   ) {
     this.userService.loadUsers();
     this.users = this.userService.getUsers();
+    this.isLoading$ = this.userService.isLoading$;
 }
   
   

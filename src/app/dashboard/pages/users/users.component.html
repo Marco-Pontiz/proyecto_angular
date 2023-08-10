@@ -8,8 +8,14 @@
 <h1>Alumnos registrados </h1>
 <h2>Fecha Actual: {{ today | date: 'short' }}</h2>
 
-<app-users-table
-    [dataSource]="(users | async) || []" 
-    (deleteUser)="onDeleteUser($event)"
-    (editUser)="onEditUser($event)"
-></app-users-table>
+<div *ngIf="isLoading$ | async; else notLoadingTemplate">
+    Cargando
+</div>
+
+<ng-template #notLoadingTemplate>
+    <app-users-table
+        [dataSource]="(users | async) || []" 
+        (deleteUser)="onDeleteUser($event)"
+        (editUser)="onEditUser($event)"
+    ></app-users-table>
+</ng-template>
