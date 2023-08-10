@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map, take } from 'rxjs';
 import { User } from '../dashboard/pages/users/models';
 import { NotifierService } from '../core/services/notifier.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root'})
 
@@ -11,7 +12,11 @@ export class AuthService {
     private _authService$ = new BehaviorSubject<User | null>(null);
     public authUser$ = this._authService$.asObservable(); 
 
-    constructor(private notifier: NotifierService, private router: Router) {}
+    constructor(
+        private notifier: NotifierService,
+        private router: Router,
+        private httpClient: HttpClient,
+        ) {}
 
     isAuthenticated(): Observable<boolean> {
         return this.authUser$.pipe(
@@ -21,7 +26,25 @@ export class AuthService {
     }
 
     login(payload: LoginPayload): void {
-        const MOCK_USER: User = {
+    
+    this.httpClient.get<User[]>('http://localhost:3000/users', {
+        params: {
+            email: payload.email || '',
+            password: payload.password || '',
+        }
+    }).subscribe({
+        next:(response) => {
+            if(response.length) {
+                this._authService$.next(response[0])
+                this.router.navigate(['/dashboard']);
+            } else {
+                this.notifier.showError('Email o contraseña invalido');
+                this._authService$.next(null)
+            }
+        },
+    })
+    
+        /*  const MOCK_USER: User = {
             id: 50,
             name: 'MockName',
             surname: 'MockSurname',
@@ -36,7 +59,7 @@ export class AuthService {
     } else {
         this.notifier.showError('Datos invalidos');
         this._authService$.next(null);
-    }
+    }*/
 
     }
 

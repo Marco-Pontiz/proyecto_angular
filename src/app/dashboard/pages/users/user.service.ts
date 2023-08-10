@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CreateUserData, UpdateUserData, User } from './models';
 import { BehaviorSubject, Observable, Subject, delay, map, mergeMap, of, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
@@ -14,7 +14,7 @@ export class UserService {
   private _users$ = new BehaviorSubject<User[]>([]);
   private users$ = this._users$.asObservable();
   private _isLoading$ = new BehaviorSubject(false);
-  
+
   public isLoading$ = this._isLoading$.asObservable();
 
   constructor(private notifier: NotifierService, private httpClient: HttpClient) {
@@ -34,7 +34,15 @@ export class UserService {
     }); */
 
     this._isLoading$.next(true);
-    this.httpClient.get<User[]>('http://localhost:3000/users').subscribe({
+    this.httpClient.get<User[]>('http://localhost:3000/users', {
+      headers: new HttpHeaders({
+        'token': '12345678910'
+      }),
+    /*  params: {
+        page: 1,
+        limit: 50,
+      }*/
+    }).subscribe({
       next: (response) => {
         this._users$.next(response);
       },
@@ -94,7 +102,7 @@ export class UserService {
   }
   
   updateUserById(id: number, usuarioActualizado: UpdateUserData): void {
-    this.users$.pipe(take(1)).subscribe({
+/*  this.users$.pipe(take(1)).subscribe({
       next: (arrayActual) => {
         this._users$.next(
           arrayActual.map((u) => 
@@ -103,7 +111,12 @@ export class UserService {
         );
         this.notifier.showSuccess('Alumno Actualizado')
       },
-    });
+    }); */
+
+    this.httpClient.put('http://localhost:3000/users/' + id, usuarioActualizado).subscribe({
+      next: () => this.loadUsers(),
+    })
+
   }
 
     deleteUserById(id: number): void {
@@ -116,13 +129,13 @@ export class UserService {
 
     this.httpClient.delete('http://localhost:3000/users/' + id)
       .pipe(
-        mergeMap(
+  /*    mergeMap( 
           (responseUserDelete) => this.users$.pipe(
             take(1), 
             map((arrayActual) => arrayActual.filter((u) => u.id !== id)))
-        ) 
+        ) */
       ).subscribe({
-        next: (arrayActualizado) => this._users$.next(arrayActualizado),
+        next: (arrayActualizado) => this.loadUsers(),
       })
 
     //this.users$.pipe(take(1))
