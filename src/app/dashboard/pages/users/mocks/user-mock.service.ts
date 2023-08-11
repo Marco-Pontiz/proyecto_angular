@@ -7,7 +7,8 @@ export class UserMockService {
             name: 'FAKE_NAME',
             surname: 'FAKE_SURNAME',
             email: 'FAKE_NAME@mail.com',
-            password: '123456789'
+            password: '123456789',
+            token: '',
         },
     ];
 

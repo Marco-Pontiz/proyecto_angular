@@ -5,7 +5,16 @@
       "surname": "Afton",
       "email": "MA@gmail.com",
       "password": "123456789",
+      "token": "ElgAswedzxQZZRjoqV28",
       "id": 1
+    },
+    {
+      "name": "Danna",
+      "surname": "García",
+      "email": "DG@gmail.com",
+      "password": "123456789",
+      "token": "SnEhOgA6DIclpjGhvW47",
+      "id": 2
     }
   ],
   "products": []

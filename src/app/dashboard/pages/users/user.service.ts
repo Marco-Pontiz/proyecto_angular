@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CreateUserData, UpdateUserData, User } from './models';
-import { BehaviorSubject, Observable, Subject, delay, map, mergeMap, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, mergeMap, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-
+import { generateRandomString } from 'src/app/shared/utils/helpers';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -29,19 +29,11 @@ export class UserService {
   }
 
   loadUsers(): void {
-/*  USER_DB.subscribe({
-      next: (usuariosFromDb) => this._users$.next(usuariosFromDb),
-    }); */
-
     this._isLoading$.next(true);
-    this.httpClient.get<User[]>('http://localhost:3000/users', {
+    this.httpClient.get<User[]>(environment.baseApiUrl + '/users', {
       headers: new HttpHeaders({
         'token': '12345678910'
       }),
-    /*  params: {
-        page: 1,
-        limit: 50,
-      }*/
     }).subscribe({
       next: (response) => {
         this._users$.next(response);
@@ -53,7 +45,6 @@ export class UserService {
         this._isLoading$.next(false);
       },
     })
-
   }
 
   getUsersByiD(id: number) {
@@ -68,24 +59,10 @@ export class UserService {
   }
 
   createUser(payload: CreateUserData): void {
-/*
-    this.users$.pipe(take(1)).subscribe({     
-        next: (arrayActual) => {
-          this._users$.next([...arrayActual, {...user, id: arrayActual.length + 1},
-        ]);
-        this.notifier.showSuccess('Alumno creado!')
-      }
-    })
-    */
-  
-/*  this.users$.pipe(take(1)).subscribe({
-      next: (arrayActual) => {
-        this._users$.next([...arrayActual, userCreated])
-      }
-    }) */
 
-    
-    this.httpClient.post<User>('http://localhost:3000/users', payload)
+    const token = generateRandomString(20);
+
+    this.httpClient.post<User>(environment.baseApiUrl + '/users', {...payload, token})
       .pipe(
         mergeMap((userCreate) => this.users$.pipe(
           take(1), 
@@ -102,43 +79,17 @@ export class UserService {
   }
   
   updateUserById(id: number, usuarioActualizado: UpdateUserData): void {
-/*  this.users$.pipe(take(1)).subscribe({
-      next: (arrayActual) => {
-        this._users$.next(
-          arrayActual.map((u) => 
-            u.id === id ? {...u, ...usuarioActualizado} : u
-          )
-        );
-        this.notifier.showSuccess('Alumno Actualizado')
-      },
-    }); */
-
-    this.httpClient.put('http://localhost:3000/users/' + id, usuarioActualizado).subscribe({
+    this.httpClient.put(environment.baseApiUrl + '/users/' + id, usuarioActualizado).subscribe({
       next: () => this.loadUsers(),
     })
-
   }
 
     deleteUserById(id: number): void {
-/*    this._users$.pipe(take(1)).subscribe({
-        next: (arrayActual) => {
-          this._users$.next(arrayActual.filter((u) => u.id !== id));
-          this.notifier.showSuccess('Alumno eliminado');
-        },
-    }); */
 
-    this.httpClient.delete('http://localhost:3000/users/' + id)
+    this.httpClient.delete(environment.baseApiUrl + '/users/' + id)
       .pipe(
-  /*    mergeMap( 
-          (responseUserDelete) => this.users$.pipe(
-            take(1), 
-            map((arrayActual) => arrayActual.filter((u) => u.id !== id)))
-        ) */
       ).subscribe({
         next: (arrayActualizado) => this.loadUsers(),
       })
-
-    //this.users$.pipe(take(1))
-
     }
   }
