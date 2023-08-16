@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment';
 @Injectable({ providedIn: 'root'})
 
 export class AuthService {
-    private _authService$ = new BehaviorSubject<User | null>(null);
-    public authUser$ = this._authService$.asObservable(); 
+    private _authUser$ = new BehaviorSubject<User | null>(null);
+    public authUser$ = this._authUser$.asObservable(); 
 
     constructor(
         private notifier: NotifierService,
@@ -25,11 +25,17 @@ export class AuthService {
             token: localStorage.getItem('token') || '',
         }
     }).pipe(
-        map((usersResult) => {
+        map((usersResult) => {  
+
+            if(usersResult.length) {
+                const authUser = usersResult[0];
+                this._authUser$. next(authUser);
+            }
+
             return !!usersResult.length
         })
     )
-}
+    }
 
     login(payload: LoginPayload): void {
     
@@ -41,13 +47,15 @@ export class AuthService {
     }).subscribe({
         next:(response) => {
             if(response.length) {
+
                 const authUser = response[0];
-                this._authService$.next(authUser)
+                this._authUser$.next(authUser)
+
                 this.router.navigate(['/dashboard']);
                 localStorage.setItem('token', authUser.token);
             } else {
                 this.notifier.showError('Email o contraseña invalido');
-                this._authService$.next(null)
+                this._authUser$.next(null)
             }
         },
         error: (err) => {
@@ -62,5 +70,5 @@ export class AuthService {
             }
         }
     })
-}
+    }
 }
