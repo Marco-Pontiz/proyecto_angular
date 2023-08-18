@@ -3,6 +3,7 @@ export interface Product {
     name: string,
     description: string,
     price: number,
+    categoryId: number,
     stock: number,
 }
 
@@ -11,6 +12,7 @@ export interface CreateProductData {
     description: string,
     price: number,
     stock: number,
+    categoryId: number
 }
 
 export interface UpdateProductData {
@@ -19,4 +21,5 @@ export interface UpdateProductData {
     description?: string,
     price?: number,
     stock?: number,
+    categoryId?: number
 }

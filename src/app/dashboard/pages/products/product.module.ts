@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { FormCursosModule } from '../products/form-cursos/form-cursos.module';
+import { FormCursosModule } from './form-cursos/form-cursos.module';
 
 
 @NgModule({

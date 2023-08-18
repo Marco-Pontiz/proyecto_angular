@@ -26,6 +26,7 @@ export class ProductService {
         description: 'Framework de desarrollo',
         price: 90,
         stock: 10,
+        categoryId: 1
       },
       {
         id: 2,
@@ -33,6 +34,7 @@ export class ProductService {
         description: 'Front-end y Back-end Developer',
         price: 100,
         stock: 10,
+        categoryId: 1
       },
       {
         id: 3,
@@ -40,18 +42,9 @@ export class ProductService {
         description: 'Practicas de seguridad para malwares',
         price: 150,
         stock: 10,
+        categoryId: 1
       }
     ])
-  }
-
-  createProduct(product: CreateProductData): void {
-    this._products$.pipe(take(1)).subscribe({
-      next: (arrayActual) => {
-        this.products$.next([...arrayActual, {...product, id: arrayActual.length + 1},
-        ]);
-        this.notifier.showSuccess('Curso Creado')
-      }
-    })
   }
 
   
@@ -65,6 +58,7 @@ export class ProductService {
           description: 'Random description',
           price: 3,
           stock: 40,
+          categoryId: 1
         });
 
         this.products$.next([...arrayActual]);
@@ -72,6 +66,15 @@ export class ProductService {
     })
   }
   
+  createProduct(product: CreateProductData): void {
+    this._products$.pipe(take(1)).subscribe({
+      next: (arrayActual) => {
+        this.products$.next([...arrayActual, {...product, id: arrayActual.length + 1},
+        ]);
+        this.notifier.showSuccess('Curso Creado')
+      }
+    })
+  }
 
   deleteById(id: number): void {
     this.products$.pipe(take(1)).subscribe({

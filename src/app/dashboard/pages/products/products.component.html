@@ -39,6 +39,11 @@
         <td mat-cell *matCellDef="let product"> {{product.stock}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="categoryId">
+        <th mat-header-cell *matHeaderCellDef>CategoryId</th>
+        <td mat-cell *matCellDef="let product"> {{product.categoryId}} </td>
+    </ng-container>
+
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>

@@ -33,6 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             description: v.description,
             price: v.price,
             stock: v.stock,
+            categoryId: v.categoryId
           })
           console.log('Curso creado')
         } else {

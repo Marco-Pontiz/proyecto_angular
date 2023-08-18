@@ -8,8 +8,8 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  public emailControl = new FormControl('fake@gmail.com', [Validators.required, Validators.email]);
-  public passwordControl = new FormControl('123456789', [Validators.required]);
+  public emailControl = new FormControl('', [Validators.required, Validators.email]);
+  public passwordControl = new FormControl('', [Validators.required]);
   
   public loginForm = new FormGroup({
     email: this.emailControl,

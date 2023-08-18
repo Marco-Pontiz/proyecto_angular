@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
-import { ProductsModule } from './pages/products/products.module';
+import { ProductsModule } from './pages/products/product.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 
