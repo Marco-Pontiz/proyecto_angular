@@ -17,5 +17,30 @@
       "id": 2
     }
   ],
-  "products": []
+  "products": [
+    {
+      "id": 1,
+      "name": "Angular",
+      "description": "Framework de desarrollo",
+      "price": 90,
+      "stock": 10,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Desarrollo Web Full Stack",
+      "description": "Front-end y Back-end Developer",
+      "price": 100,
+      "stock": 10,
+      "categoryId": 2
+    },
+    {
+      "id": 3,
+      "name": "Ciberseguridad",
+      "description": "Practicas de seguridad para malwares",
+      "price": 150,
+      "stock": 10,
+      "categoryId": 2
+    }
+  ]
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { Product, CreateProductData, UpdateProductData } from './models';
 import { NotifierService } from 'src/app/core/services/notifier.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class ProductService {
   private products$ = new BehaviorSubject<Product[]>([]);
   private _products$ = this.products$.asObservable();
 
-  constructor(private notifier: NotifierService) { }
+  constructor(
+    private notifier: NotifierService,
+    private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return this.products$.asObservable();
@@ -75,7 +79,22 @@ export class ProductService {
       }
     })
   }
-
+  editById(id: number, updateData: UpdateProductData): void {
+    this._products$.pipe(take(1)).subscribe(products => {
+      const productIndex = products.findIndex(p => p.id === id);
+      if (productIndex !== -1) {
+        const updatedProduct: Product = {
+          ...products[productIndex],
+          ...updateData // Actualiza solo los campos que se hayan proporcionado
+        };
+        
+        const updatedProducts = [...products];
+        updatedProducts[productIndex] = updatedProduct;
+        this.products$.next(updatedProducts);
+        this.notifier.showSuccess('Curso Editado');
+      }
+    });
+  }
   deleteById(id: number): void {
     this.products$.pipe(take(1)).subscribe({
       next: (arrayActual) => {
@@ -86,20 +105,7 @@ export class ProductService {
     })
   }
 
-  editById(id: number, updateData: UpdateProductData): void {
-    this._products$.pipe(take(1)).subscribe(products => {
-      const productIndex = products.findIndex(p => p.id === id);
-      if (productIndex !== -1) {
-        const updatedProduct: Product = {
-          ...products[productIndex],
-          ...updateData // Actualiza solo los campos que se hayan proporcionado
-        };
-  
-        const updatedProducts = [...products];
-        updatedProducts[productIndex] = updatedProduct;
-        this.products$.next(updatedProducts);
-        this.notifier.showSuccess('Curso Editado');
-      }
-    });
+  getProductsByCategoryId(categoryId: number): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.baseApiUrl + `/products?categoryId=${categoryId}`)
   }
 }
