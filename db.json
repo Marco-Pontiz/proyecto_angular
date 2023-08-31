@@ -1,12 +1,22 @@
 {
   "users": [
     {
+      "name": "Marco",
+      "surname": "Pontiz",
+      "email": "marcop@gmail.com",
+      "password": "EsIncorrecta",
+      "token": "HrEhOgA2DIinpqPhuW39",
+      "role": "ADMINISTRADOR",
+      "id": 1
+    },
+    {
       "name": "Michael",
       "surname": "Afton",
       "email": "MA@gmail.com",
       "password": "123456789",
       "token": "ElgAswedzxQZZRjoqV28",
-      "id": 1
+      "role": "USUARIO",
+      "id": 2
     },
     {
       "name": "Danna",
@@ -14,7 +24,8 @@
       "email": "DG@gmail.com",
       "password": "123456789",
       "token": "SnEhOgA6DIclpjGhvW47",
-      "id": 2
+      "role": "USUARIO",
+      "id": 3
     }
   ],
   "products": [

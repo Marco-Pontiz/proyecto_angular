@@ -30,7 +30,6 @@
             </mat-error>
         
         </mat-form-field>
-        <pre>{{ nameControl.errors | keyvalue | json }}</pre>
     </div>
 
     <!-- Campo de Apellido -->
@@ -50,6 +49,18 @@
                 Este campo debe e tener al menos {{surnameControl.errors?.['minlength']?.requiredLength}} caracteres
             </mat-error>
             
+        </mat-form-field>
+    </div>
+
+    <div class="field">
+        <mat-form-field>
+            <mat-label>Rol</mat-label>
+            <mat-select>
+                <mat-option>
+                    <mat-option>Administrador</mat-option>
+                    <mat-option>Usuario</mat-option>
+                </mat-option>
+            </mat-select>
         </mat-form-field>
     </div>
 

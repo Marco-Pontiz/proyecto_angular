@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../products/product.service';
 import { Product } from '../../../products/models';
@@ -13,7 +13,7 @@ import { selectCategoryDetailName } from '../../store/categories.selectors';
   styles: [
   ]
 })
-export class CategoryDetailComponent implements OnInit{
+export class CategoryDetailComponent implements OnInit {
 
   displayedColumns = ['id', 'name', 'price'];
   products: Product[] = [];
@@ -24,12 +24,13 @@ export class CategoryDetailComponent implements OnInit{
     private productService: ProductService,
     private store: Store,
   ) {
-    console.log(this.activatedRoute.snapshot.params);
     this.categoryName$ = this.store.select(selectCategoryDetailName);
-    console.log(this.categoryName$)
   }
+
+
   ngOnInit(): void {
     this.store.dispatch(CategoriesActions.loadCategoryDetail({ categoryId: this.activatedRoute.snapshot.params['id'] }))
+
     this.productService.getProductsByCategoryId(this.activatedRoute.snapshot.params['id']).subscribe({
       next: (products) => (this.products = products),
     })

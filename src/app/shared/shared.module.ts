@@ -12,6 +12,7 @@ import { FullNamePipe } from './pipes/full-name.pipe';
 import { ControlErrorMessagePipe } from './pipes/control-error-message.pipe';
 import { ResaltadoDirective } from './directives/resaltado.directive';
 import { RepetirDirective } from './directives/repetir.directive';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RepetirDirective } from './directives/repetir.directive';
     FullNamePipe,
     ControlErrorMessagePipe,
     ResaltadoDirective,
-    RepetirDirective
+    RepetirDirective,
+    MatSelectModule
   ]
 })
 export class SharedModule { }
