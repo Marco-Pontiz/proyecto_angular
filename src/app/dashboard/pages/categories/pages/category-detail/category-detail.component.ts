@@ -22,12 +22,14 @@ export class CategoryDetailComponent implements OnInit{
   constructor(
     private activatedRoute: ActivatedRoute, 
     private productService: ProductService,
-    private store: Store,) {
-  console.log(this.activatedRoute.snapshot.params);
-  this.categoryName$ = this.store.select(selectCategoryDetailName);
+    private store: Store,
+  ) {
+    console.log(this.activatedRoute.snapshot.params);
+    this.categoryName$ = this.store.select(selectCategoryDetailName);
+    console.log(this.categoryName$)
   }
   ngOnInit(): void {
-    this.store.dispatch(CategoriesActions.loadCategoriesDetail({ categoryId: this.activatedRoute.snapshot.params['id'] }))
+    this.store.dispatch(CategoriesActions.loadCategoryDetail({ categoryId: this.activatedRoute.snapshot.params['id'] }))
     this.productService.getProductsByCategoryId(this.activatedRoute.snapshot.params['id']).subscribe({
       next: (products) => (this.products = products),
     })

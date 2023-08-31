@@ -17,6 +17,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
+
   on(CategoriesActions.loadCategories, state => {
     return{
       ...state,
@@ -24,13 +25,12 @@ export const reducer = createReducer(
     }
   }),
 
-  on(CategoriesActions.loadCategoriesDetail, (state, action) => {
+  on(CategoriesActions.loadCategoryDetail, (state, action) => {
     return{
       ...state,
-      categoryDetail: CATEGORIES_MOCK.find((c) => c.id === action.categoryId) || null,
+      categoryDetail: CATEGORIES_MOCK.find((c) => c.id == action.categoryId) || null,
     }
-  })
-
+  }),
 );
 
 export const categoriesFeature = createFeature({
