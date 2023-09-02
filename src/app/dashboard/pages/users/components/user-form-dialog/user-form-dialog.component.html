@@ -10,8 +10,8 @@
 
     <!-- Campo de Nombre -->
 
-    <div class="field">
-        <mat-form-field appaerance="outline">
+    <div class="field col-6">
+        <mat-form-field class="w-full" appaerance="outline">
             <mat-label>Nombre</mat-label>
             <input formControlName="name" matInput type="text" name="name">
 
@@ -34,8 +34,8 @@
 
     <!-- Campo de Apellido -->
 
-    <div class="field">
-        <mat-form-field appaerance="outline">
+    <div class="field col-6">
+        <mat-form-field class="w-full" appaerance="outline">
             <mat-label>Apellido</mat-label>
             <input formControlName="surname" matInput type="text" name="surname">
 
@@ -52,22 +52,30 @@
         </mat-form-field>
     </div>
 
-    <div class="field">
-        <mat-form-field>
+    <!-- Campo Role -->
+
+    <div class="field col-6">
+        <mat-form-field class="w-full" appaerance="outline">
             <mat-label>Rol</mat-label>
-            <mat-select>
+            <mat-select [formControl]="roleControl">
+                <!-- <mat-option *ngIf="isLoading">
+                    <mat-progress-bar style="width: 500px;" mode="indeterminate"></mat-progress-bar>
+                </mat-option> -->
                 <mat-option>
-                    <mat-option>Administrador</mat-option>
-                    <mat-option>Usuario</mat-option>
+                    <mat-option value="ADMINISTRADOR">Administrador</mat-option>
+                    <mat-option value="USUARIO">Usuario</mat-option>
                 </mat-option>
             </mat-select>
+            <mat-error *ngFor="let error of roleControl.errors | keyvalue">
+                {{ error | controlErrorMessage }}
+            </mat-error>
         </mat-form-field>
     </div>
 
     <!-- Campo de Email -->
 
-    <div class="field">
-        <mat-form-field appaerance="outline">
+    <div class="field col-12">
+        <mat-form-field class="w-full" appaerance="outline">
             <mat-label>Email</mat-label>
             <input [formControl]="emailControl" matInput type="email" name="email">
 
@@ -81,8 +89,8 @@
 
     <!-- Campo de Contraseña -->
 
-    <div class="field">
-        <mat-form-field appaerance="outline">
+    <div class="field col-12">
+        <mat-form-field class="w-full" appaerance="outline">
             <mat-label>Contraseña</mat-label>
             <input formControlName="password" [formControl]="passwordControl" matInput type="password" name="password" autocomplete="off">
 

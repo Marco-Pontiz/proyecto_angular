@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { noSebastianValidator } from 'src/app/shared/utils/form-validators';
 import { User } from '../../models';
@@ -22,6 +22,8 @@ export class UserFormDialogComponent {
     Validators.minLength(2)
   ]);
 
+  roleControl = new FormControl<string | null>(null, [Validators.required]);
+
   emailControl = new FormControl< string | null > (null , [
     Validators.required,
     Validators.email
@@ -33,8 +35,9 @@ export class UserFormDialogComponent {
   userForm = new FormGroup({
     name: this.nameControl,
     surname: this.surnameControl,
+    role: this.roleControl,
     email: this.emailControl,
-    password: this.passwordControl
+    password: this.passwordControl,
   }); 
 
    // userForm: FormGroup; 
@@ -43,15 +46,11 @@ export class UserFormDialogComponent {
     private dialogRef: MatDialogRef<UserFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data?: User
   ) {
-/*  this.userForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.min(2), noSebastianValidator()]],
-      surname: [null, [Validators.required, Validators.min(2)]],
-
-    }); */
     if(this.data){
       this.editingUser = this.data;
       this.nameControl.setValue(this.data.name);
       this.surnameControl.setValue(this.data.surname);
+      this.roleControl.setValue(this.data.role);
       this.passwordControl.setValue(this.data.password);
       this.emailControl.setValue(this.data.email);
     }
@@ -61,7 +60,15 @@ export class UserFormDialogComponent {
     if (this.userForm.invalid) {      
       this.userForm.markAllAsTouched();
     } else {
-      this.dialogRef.close(this.userForm.value);
+      const payload: any = {
+        ...this.userForm.value
+      }
+      
+      if(this.editingUser) {
+        payload['token'] = this.editingUser.token;
+      }
+
+      this.dialogRef.close(payload);
     } 
   }
 }

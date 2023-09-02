@@ -1,7 +1,7 @@
 <mat-nav-list>
     <!-- /dashboard => /dashboard/home -->
 <a routerLink="home" mat-list-item>Inicio</a>
-<a routerLink="users" mat-list-item>Alumnos</a>
+<a *ngIf="selectIsAdmin$ | async" routerLink="users" mat-list-item>Alumnos</a>
 <a routerLink="products" mat-list-item>Cursos</a>
 <a routerLink="counter" mat-list-item>Contador</a>
 <a routerLink="categories" mat-list-item>Categorias</a>

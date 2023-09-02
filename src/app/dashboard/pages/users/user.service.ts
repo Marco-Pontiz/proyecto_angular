@@ -90,6 +90,8 @@ export class UserService {
       .pipe(
       ).subscribe({
         next: (arrayActualizado) => this.loadUsers(),
+        error: (err) => this.notifier.showError('Ocurrió un error'),
+        complete: () => {}
       })
     }
   }

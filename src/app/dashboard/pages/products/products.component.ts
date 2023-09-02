@@ -4,6 +4,8 @@ import { ProductService } from './product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormCursosComponent } from './form-cursos/form-cursos.component';
+import { Store } from '@ngrx/store';
+import { selectIsAdmin } from 'src/app/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-products',
@@ -16,9 +18,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public data$: Observable<Product[]>;
   public displayedColumns = ['id', 'name', 'description', 'price', 'stock', 'actions'];
 
-  constructor(private productService: ProductService, private matDialog: MatDialog) {
-    
+  public isAdmin$: Observable<boolean>;
+
+  constructor(private productService: ProductService, private matDialog: MatDialog, private store: Store) {
     this.data$ = this.productService.getProducts();
+    this.isAdmin$ = this.store.select(selectIsAdmin);
   }
 
   onCreateProduct(): void {
