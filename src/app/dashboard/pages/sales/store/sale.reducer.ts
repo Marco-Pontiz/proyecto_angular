@@ -19,7 +19,7 @@ export const initialState: State = {
   buyerOptions: [],
   productOptions: [],
   loading: false,
-  error: null,
+  error: null,                      //Video minuto 01:04:21
 };
 
 export const reducer = createReducer(

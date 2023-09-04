@@ -55,6 +55,27 @@
     }
   ],
 
+  "buyers": [
+    {
+      "id": 1,
+      "name": "Leo",
+      "surname": "Messi",
+      "email": "LM@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Javier",
+      "surname": "Milei",
+      "email": "JM@gmail.com"
+    },
+    {
+      "id": 3,
+      "name": "William",
+      "surname": "Afton",
+      "email": "WA@gmail.com"
+    }
+  ],
+
   "sales": [
     {
       "id": 1,
