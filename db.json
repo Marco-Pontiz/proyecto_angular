@@ -54,7 +54,6 @@
       "categoryId": 2
     }
   ],
-
   "buyers": [
     {
       "id": 1,
@@ -73,9 +72,26 @@
       "name": "William",
       "surname": "Afton",
       "email": "WA@gmail.com"
+    },
+    {
+      "name": "test",
+      "surname": "test",
+      "email": "tt@gmail.com",
+      "id": 4
+    },
+    {
+      "name": "Danna",
+      "surname": "García",
+      "email": "DG@gmail.com",
+      "id": 5
+    },
+    {
+      "name": "Kyllian",
+      "surname": "Mbappe",
+      "email": "mbopp@gmail.com",
+      "id": 6
     }
   ],
-
   "sales": [
     {
       "id": 1,
@@ -85,12 +101,17 @@
     {
       "id": 2,
       "productId": 3,
-      "buyerId":2
+      "buyerId": 2
     },
     {
       "id": 3,
       "productId": 1,
       "buyerId": 3
+    },
+    {
+      "productId": 1,
+      "buyerId": 6,
+      "id": 4
     }
   ]
 }
