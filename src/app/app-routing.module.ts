@@ -19,7 +19,7 @@ const routes: Routes = [
     {
         // ** Se utiliza para decir "Cualquier path que no sea ninguno de los declarados anteriormente"
         path: '**',
-        redirectTo: '/dashboard',
+        redirectTo: '/dashboard/home',
     }
 ];
 

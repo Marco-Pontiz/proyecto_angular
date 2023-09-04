@@ -4,9 +4,6 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterLink, RouterModule } from '@angular/router';
 
-
-
-
 @NgModule({
   declarations: [
     HomeComponent

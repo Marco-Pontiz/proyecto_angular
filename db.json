@@ -53,5 +53,23 @@
       "stock": 10,
       "categoryId": 2
     }
+  ],
+
+  "sales": [
+    {
+      "id": 1,
+      "productId": 2,
+      "buyerId": 1
+    },
+    {
+      "id": 2,
+      "productId": 3,
+      "buyerId":2
+    },
+    {
+      "id": 3,
+      "productId": 1,
+      "buyerId": 3
+    }
   ]
 }

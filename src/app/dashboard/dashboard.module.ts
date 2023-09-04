@@ -13,6 +13,8 @@ import { NavMenuComponent } from './layout/nav-menu/nav-menu.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { ProductsModule } from './pages/products/product.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SalesModule } from './pages/sales/sales.module';
+import { BuyersModule } from './pages/buyers/buyers.module';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     MatListModule,
     MatIconModule,
     HomeModule,
+    SalesModule,
+    BuyersModule,
     ProductsModule, //Productos
     UsersModule,
     RouterModule,

@@ -23,6 +23,14 @@ const routes: Routes = [
         loadChildren: () => import('./pages/categories/categories.module').then((m) => m.CategoriesModule),
     },
     {
+        path:'sales',
+        loadChildren: () => import('./pages/sales/sales.module').then((m) => m.SalesModule),
+    },
+    {
+        path:'buyers',
+        loadChildren: () => import('./pages/buyers/buyers.module').then((m) => m.BuyersModule),
+    },
+    {
         path:'counter',
         loadChildren: () => import('./pages/counter/counter.module').then((m) => m.CounterModule),
     },
